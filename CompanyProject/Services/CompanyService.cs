@@ -23,7 +23,7 @@ namespace CompanyProject.Services
 
         public void AddEmployee(string fullname, string position, int salary, string departmentname)
         {
-            Employee employee = new(fullname, position, salary);
+            Employee employee = new(fullname, position, salary, departmentname);
             var department = Departments.Find(s => s.Name == departmentname);
             department.Employees.Add(employee);            
         }
@@ -39,21 +39,21 @@ namespace CompanyProject.Services
             return Departments.ToList();
         }
 
-        public void RemoveEmployee(int no)
+        public void RemoveEmployee(string id)
         {
             int check = 0;
             foreach (var item in Departments)
             {
-                check = item.Employees.RemoveAll(s => s.No == no);
+                check = item.Employees.RemoveAll(s => s.ID == id);
             }
             if (check != 1)
                 throw new KeyNotFoundException("There is no such employee");
         }
-        public void EditEmployee(int no, string newfullname, string newposition, int newsalary)
+        public void EditEmployee(string id, string newfullname, string newposition, int newsalary)
         {
             foreach (var item in Departments)
             {
-                var employee = item.Employees.Find(s => s.No == no);
+                var employee = item.Employees.Find(s => s.ID == id);
                 employee.FullName = newfullname;
                 employee.Position = newposition;
                 employee.Salary = newsalary;

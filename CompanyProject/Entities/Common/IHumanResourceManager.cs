@@ -9,12 +9,12 @@ namespace CompanyProject.Entities.Common
     interface IHumanResourceManager
     {
         public List<Department> GetDepartments();
-        public List<Employee> GetEmployees();
+        public List<Employee> GetEmployees(); 
         public void AddDepartment(string departmentname);
         public void EditDepartment(string currentname, string newname);
         public void AddEmployee(string fullname, string position, int salary, string departmentname);
-        public void RemoveEmployee(int no);
-        public void EditEmployee(int no, string newfullname, string newposition, int newsalary);
+        public void RemoveEmployee(string id);
+        public void EditEmployee(string id, string newfullname, string newposition, int newsalary);
 
     }
 }
