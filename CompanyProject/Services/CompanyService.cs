@@ -17,43 +17,73 @@ namespace CompanyProject.Services
         }
         public void AddDepartment(string departmentname)
         {
+            if (string.IsNullOrEmpty(departmentname))
+                throw new ArgumentNullException("Department name can not be empty or null");
             Department department = new(departmentname);
             Departments.Add(department);
         }
 
         public void AddEmployee(string fullname, string position, int salary, string departmentname)
         {
-            Employee employee = new(fullname, position, salary, departmentname);
+            if (string.IsNullOrEmpty(fullname))
+                throw new ArgumentNullException("Full name can not be empty or null");
+            if (string.IsNullOrEmpty(position))
+                throw new ArgumentNullException("Position can not be empty or null");
+            if (salary < 250)
+                throw new ArgumentOutOfRangeException("Salary can not be less than 250 AZN");
+            if (string.IsNullOrEmpty(departmentname))
+                throw new ArgumentNullException("Department name can not be empty or null");
             var department = Departments.Find(s => s.Name == departmentname);
+            if (department == null)
+                throw new ArgumentNullException("There is no such department");
+            Employee employee = new(fullname, position, salary, departmentname);        
             department.Employees.Add(employee);            
         }
 
         public void EditDepartment(string currentname, string newname)
         {
+            if (string.IsNullOrEmpty(currentname) || string.IsNullOrEmpty(newname))
+                throw new ArgumentNullException("Department name can not be empty or null");
             var department = Departments.Find(s => s.Name == currentname);
+            if (department == null)
+                throw new ArgumentNullException("There is no such department");
             department.Name = newname;
         }
 
         public List<Department> GetDepartments()
         {
+            if (Departments.Count == 0)
+                throw new KeyNotFoundException("List is empty");
             return Departments.ToList();
         }
 
         public void RemoveEmployee(string id)
         {
+            if (string.IsNullOrEmpty(id))
+                throw new ArgumentNullException("ID can not be empty or null");
             int check = 0;
             foreach (var item in Departments)
             {
                 check = item.Employees.RemoveAll(s => s.ID == id);
             }
             if (check != 1)
-                throw new KeyNotFoundException("There is no such employee");
+                throw new KeyNotFoundException("There is no such employee with a given ID");
         }
         public void EditEmployee(string id, string newfullname, string newposition, int newsalary)
         {
+            if (string.IsNullOrEmpty(id))
+                throw new ArgumentNullException("There is no such employee with a given ID");
+            if (string.IsNullOrEmpty(newfullname))
+                throw new ArgumentNullException("Name can not be empty or null");
+            if (string.IsNullOrEmpty(newposition))
+                throw new ArgumentNullException("Position can not be empty or null");
+            if (newsalary < 250)
+                throw new ArgumentOutOfRangeException("Salary can not be less than 250 AZN");
             foreach (var item in Departments)
             {
                 var employee = item.Employees.Find(s => s.ID == id);
+                if (employee == null)
+                    throw new KeyNotFoundException("There is no such employee with a given ID");
                 employee.FullName = newfullname;
                 employee.Position = newposition;
                 employee.Salary = newsalary;
@@ -69,6 +99,8 @@ namespace CompanyProject.Services
                     Temp.Add(item1);
                 }
             }
+            if (Temp.Count == 0)
+                throw new KeyNotFoundException("List is empty");
             return Temp.ToList();
         }
     }

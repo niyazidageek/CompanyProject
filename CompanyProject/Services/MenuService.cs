@@ -14,7 +14,15 @@ namespace CompanyProject.Services
         {
             Console.WriteLine("Enter the name of a department");
             string departmentname = Console.ReadLine();
-            method.AddDepartment(departmentname);
+            try
+            {
+                method.AddDepartment(departmentname);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong!");
+                Console.WriteLine(e.Message);
+            }
         }
         public static void AddEmployeeMenu()
         {
@@ -32,7 +40,15 @@ namespace CompanyProject.Services
             }
             Console.WriteLine("Enter the name of a department");
             string departmentname = Console.ReadLine();
-            method.AddEmployee(fullname, position, salary, departmentname);
+            try
+            {
+                method.AddEmployee(fullname, position, salary, departmentname);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong!");
+                Console.WriteLine(e.Message);
+            }          
         }
         public static void EditDepartmentMenu()
         {
@@ -40,23 +56,47 @@ namespace CompanyProject.Services
             string name = Console.ReadLine();
             Console.WriteLine("Enter the new name of a department");
             string newname = Console.ReadLine();
-            method.EditDepartment(name, newname);
+            try
+            {
+                method.EditDepartment(name, newname);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong!");
+                Console.WriteLine(e.Message);
+            }
         }    
         public static void GetDepartmentsMenu()
         {
             var table = new ConsoleTable("Departments");
-            foreach (var item in method.GetDepartments())
+            try
             {
-                table.AddRow(item.Name);
+                foreach (var item in method.GetDepartments())
+                {
+                    table.AddRow(item.Name);
+                }
+                table.Write();
+                Console.WriteLine();
             }
-            table.Write();
-            Console.WriteLine();
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong!");
+                Console.WriteLine(e.Message);
+            }
         }
         public static void RemoveEmployeeMenu()
         {
             Console.WriteLine("Enter the ID of an employee");
             string id = Console.ReadLine();
-            method.RemoveEmployee(id);
+            try
+            {
+                method.RemoveEmployee(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong!");
+                Console.WriteLine(e.Message);
+            }
         }
         public static void EditEmployeeMenu()
         {
@@ -74,17 +114,33 @@ namespace CompanyProject.Services
                 Console.WriteLine("Enter a number, please");
                 salarystr = Console.ReadLine();
             }
-            method.EditEmployee(id, newfullname, newposition, salary);
+            try
+            {
+                method.EditEmployee(id, newfullname, newposition, salary);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong!");
+                Console.WriteLine(e.Message);
+            }
         }
         public static void GetEmployeesMenu()
         {
             var table = new ConsoleTable("ID", "Full name", "Position", "Salary");
-            foreach (var item in method.GetEmployees())
+            try
             {
-                table.AddRow(item.ID, item.FullName, item.Position, item.Salary);
+                foreach (var item in method.GetEmployees())
+                {
+                    table.AddRow(item.ID, item.FullName, item.Position, item.Salary);
+                }
+                table.Write();
+                Console.WriteLine();
             }
-            table.Write();
-            Console.WriteLine();
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong!");
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
