@@ -8,6 +8,7 @@ namespace CompanyProject
         static void Main(string[] args)
         {
             int option = 0;
+            
             do
             {
                 Console.WriteLine("1. Departments");
@@ -35,7 +36,7 @@ namespace CompanyProject
                             while (!int.TryParse(optionstr1, out option1))
                             {
                                 Console.WriteLine("Enter a number, please");
-                                optionstr = Console.ReadLine();
+                                optionstr1 = Console.ReadLine();
                             }
                             switch (option1)
                             {
@@ -56,7 +57,7 @@ namespace CompanyProject
                             }
                         } while (option1!=0);                       
                         break;
-                    case 2:
+                    case 2:           
                         int option2 = 0;
                         do
                         {
@@ -70,7 +71,7 @@ namespace CompanyProject
                             while (!int.TryParse(optionstr2, out option2))
                             {
                                 Console.WriteLine("Enter a number, please");
-                                optionstr = Console.ReadLine();
+                                optionstr2 = Console.ReadLine();
                             }
                             switch (option2)
                             {

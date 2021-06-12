@@ -20,9 +20,10 @@ namespace CompanyProject.Entities
             FullName = fullname;
             Position = position;
             Salary = salary;
-            No = count;
+            DepartmentName = departmentname;
             count++;
+            No = count;           
             ID = departmentname[0].ToString().ToUpper() + departmentname[1].ToString().ToUpper() + No.ToString();
-        }
+        }       
     }
 }

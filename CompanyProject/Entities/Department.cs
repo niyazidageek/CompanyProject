@@ -18,12 +18,20 @@ namespace CompanyProject.Entities
         }
         public double CalcAverageSalary()
         {
-            foreach (var item in Employees)
+            double result = 0;
+            if (Employees.Count == 0)
             {
-                sum += item.Salary;
+                Console.WriteLine("The are no employees in this department");
             }
-            var result = sum / Employees.Count;
+            else
+            {
+                foreach (var item in Employees)
+                {
+                    sum += item.Salary;
+                }
+                result = sum / Employees.Count;   
+            }
             return result;
-        }
+        }     
     }
 }

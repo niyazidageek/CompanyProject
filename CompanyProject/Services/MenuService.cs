@@ -68,12 +68,12 @@ namespace CompanyProject.Services
         }    
         public static void GetDepartmentsMenu()
         {
-            var table = new ConsoleTable("Departments");
+            var table = new ConsoleTable("Departments", "Average salary");
             try
             {
                 foreach (var item in method.GetDepartments())
                 {
-                    table.AddRow(item.Name);
+                    table.AddRow(item.Name, item.CalcAverageSalary());
                 }
                 table.Write();
                 Console.WriteLine();
