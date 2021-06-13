@@ -54,21 +54,22 @@ namespace CompanyProject.Services
             return Departments.ToList();
         }
         public void RemoveEmployee(string id)
-        {
+        {                  
             if (string.IsNullOrEmpty(id))
                 throw new ArgumentNullException("ID can not be empty or null");
+            List<int> tempcheck = new List<int>() { };
             foreach (var item in Departments)
             {
-                int index = item.Employees.FindIndex(s => s.ID == id);      
+                int index = item.Employees.FindIndex(s => s.ID == id);
+                tempcheck.Add(index);
                 if (index > -1)
                 {
                     item.Employees.RemoveAt(index);                    
-                    break;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException("There is no such employee with a given ID");
-                }
+                }     
+            }
+            if (tempcheck.Sum()/tempcheck.Count == -1)
+            {
+                throw new KeyNotFoundException("There is no such employee with a given ID");
             }
             ResetNumber();
         }
